@@ -77,17 +77,30 @@ def fact_binary_search(facts, key):
     while right < length:
         middle = (right + length) // 2
         f = facts[middle]
-        if key < f.lh.terms[f.lh.index]:
+        fact_term = f.lh.terms[f.lh.index]
+        
+        # Convert to string for comparison if one is a list
+        key_str = str(key)
+        fact_str = str(fact_term)
+        
+        if key_str < fact_str:
             length = middle
         else: 
             right = middle + 1
-    # now first occurence at the left side
+    
+    # now first occurrence at the left side
     left = 0
     length = right - 1
     while left < length:
         middle = (left + length) // 2
         f = facts[middle]
-        if key > f.lh.terms[f.lh.index]: 
+        fact_term = f.lh.terms[f.lh.index]
+        
+        # Convert to string for comparison if one is a list
+        key_str = str(key)
+        fact_str = str(fact_term)
+        
+        if key_str > fact_str: 
             left = middle + 1
         else: 
             length = middle
@@ -95,7 +108,7 @@ def fact_binary_search(facts, key):
     if left == right == 0: # if facts aren't sorted with index 0
         left, right = (0, len(facts))
             
-    return left, right #- 1
+    return left, right
     
 def filter_eq(rule, currentgoal, Q):
     # apply inequality check
